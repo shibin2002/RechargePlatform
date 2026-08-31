@@ -1,0 +1,66 @@
+## ============================================================================
+## .NET & Visual Studio
+## ============================================================================
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+*.log
+.vs/
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+*.userprefs
+TestResults/
+[Tt]est[Rr]esults/
+*.DotSettings.user
+_ReSharper*/
+
+# Sensitive local configurations
+appsettings.local.json
+appsettings.*.local.json
+
+## ============================================================================
+## Node.js & Vite Frontend
+## ============================================================================
+node_modules/
+frontend/node_modules/
+dist/
+frontend/dist/
+dist-ssr/
+*.local
+.npm/
+.eslintcache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.env
+.env.local
+.env.*.local
+coverage/
+
+## ============================================================================
+## SQL Server & Database Local Files
+## ============================================================================
+*.mdf
+*.ldf
+*.ndf
+*.bak
+
+## ============================================================================
+## OS & IDEs
+## ============================================================================
+.DS_Store
+Thumbs.db
+ehthumbs.db
+.idea/
+.fleet/
+.rider/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+

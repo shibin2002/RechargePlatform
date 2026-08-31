@@ -1,0 +1,257 @@
+{
+  "info": {
+    "_postman_id": "8d3e5281-7910-482a-9e12-328d7a12b8ff",
+    "name": "Telecom Prepaid Recharge Platform",
+    "description": "Comprehensive Postman test collection for Telecom Prepaid Recharge API, Concurrency protection, Mock Provider simulation, CSV Bulk Voucher Import, and Reconciliation.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "providerUrl",
+      "value": "http://localhost:5005/api",
+      "type": "string"
+    },
+    {
+      "key": "apiKey",
+      "value": "pos_super_secret_api_key_2026",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Successful Airtel Recharge (₹299)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-AIRTEL-{{$timestamp}}\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Airtel\",\n  \"amount\": 299\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "2. Successful Jio Recharge (₹100 - Provider Rule 100)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-JIO-{{$timestamp}}\",\n  \"mobileNumber\": \"9123456780\",\n  \"operator\": \"Jio\",\n  \"amount\": 100\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "3. Failed Recharge Simulation (₹200 - Provider Rule 200)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-FAIL-{{$timestamp}}\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Vi\",\n  \"amount\": 200\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "4. Provider Timeout Simulation (₹300 - 15s delay -> PENDING)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-TIMEOUT-{{$timestamp}}\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Airtel\",\n  \"amount\": 300\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "5. Connection Drop Simulation (₹400 - Forces PENDING)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-DROP-{{$timestamp}}\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"BSNL\",\n  \"amount\": 400\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "6. Provider Server Error Simulation (₹500 - HTTP 500 -> FAILED)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-500-{{$timestamp}}\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Jio\",\n  \"amount\": 500\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "7. Duplicate Request Scenario (TXN900001 Run 1)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN900001\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Airtel\",\n  \"amount\": 299\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "8. Duplicate Request Scenario (TXN900001 Run 2 - Catch 2627/2601)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN900001\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Airtel\",\n  \"amount\": 299\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "9. Validation Failure - Invalid Mobile Number",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-INV-MOB\",\n  \"mobileNumber\": \"12345\",\n  \"operator\": \"Airtel\",\n  \"amount\": 299\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "10. Auth Failure - Missing / Invalid X-Api-Key (401 Unauthorized)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "invalid_wrong_key" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"transactionId\": \"TXN-AUTH-FAIL\",\n  \"mobileNumber\": \"9876543210\",\n  \"operator\": \"Jio\",\n  \"amount\": 100\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/recharge", "host": ["{{baseUrl}}"], "path": ["recharge"] }
+      }
+    },
+    {
+      "name": "11. Transaction Status Enquiry (GET /api/recharge/{id})",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/recharge/TXN900001", "host": ["{{baseUrl}}"], "path": ["recharge", "TXN900001"] }
+      }
+    },
+    {
+      "name": "12. Transaction List with Filter (GET /api/recharge)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/recharge?status=SUCCESS&pageSize=10",
+          "host": ["{{baseUrl}}"],
+          "path": ["recharge"],
+          "query": [
+            { "key": "status", "value": "SUCCESS" },
+            { "key": "pageSize", "value": "10" }
+          ]
+        }
+      }
+    },
+    {
+      "name": "13. Reconcile Transaction (POST /api/recharge/{id}/reconcile)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/recharge/TXN-DROP/reconcile", "host": ["{{baseUrl}}"], "path": ["recharge", "TXN-DROP", "reconcile"] }
+      }
+    },
+    {
+      "name": "14. Card Inventory Matrix (GET /api/cards/inventory)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/cards/inventory", "host": ["{{baseUrl}}"], "path": ["cards", "inventory"] }
+      }
+    },
+    {
+      "name": "15. Atomic Card Reservation (POST /api/cards/reserve)",
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" },
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"cardNumber\": \"JIO-CARD-100-001\",\n  \"transactionId\": \"TXN-CLAIM-01\"\n}"
+        },
+        "url": { "raw": "{{baseUrl}}/cards/reserve", "host": ["{{baseUrl}}"], "path": ["cards", "reserve"] }
+      }
+    },
+    {
+      "name": "16. Provider Status Enquiry Source of Truth (GET /api/provider/status/{referenceId})",
+      "request": {
+        "method": "GET",
+        "url": { "raw": "{{providerUrl}}/provider/status/TXN900001", "host": ["{{providerUrl}}"], "path": ["provider", "status", "TXN900001"] }
+      }
+    },
+    {
+      "name": "17. Analytics: Total Recharge by Operator",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/analytics/queries/amountbyoperator", "host": ["{{baseUrl}}"], "path": ["analytics", "queries", "amountbyoperator"] }
+      }
+    }
+  ]
+}
