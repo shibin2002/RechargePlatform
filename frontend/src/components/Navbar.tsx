@@ -7,7 +7,8 @@ import {
   BarChart3,
   Clock,
   Sun,
-  Moon
+  Moon,
+  Settings
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -20,6 +21,7 @@ interface NavbarProps {
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
+  onOpenSettings,
 }) => {
   const [timeStr, setTimeStr] = useState<string>('');
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
@@ -56,7 +58,7 @@ export const Navbar: React.FC<NavbarProps> = ({
     <header className="navbar">
       <div className="brand-section">
         <div className="brand-logo" title="Arova">
-          <img src="/favicon.svg" alt="Arova" className="brand-logo-icon" />
+          <img src={`${import.meta.env.BASE_URL}favicon.svg`} alt="Arova" className="brand-logo-icon" />
         </div>
         <div className="brand-text-container">
           <div className="brand-header-row">
@@ -83,6 +85,13 @@ export const Navbar: React.FC<NavbarProps> = ({
       </nav>
 
       <div className="nav-actions">
+        <button
+          className="theme-toggle"
+          onClick={onOpenSettings}
+          title="API Authentication Settings"
+        >
+          <Settings size={16} />
+        </button>
         <button
           className="theme-toggle"
           onClick={toggleTheme}
