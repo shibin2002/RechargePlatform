@@ -1122,6 +1122,11 @@ input[type="number"] {
   }
 }
 
+/* Card inventory: card view (hidden on desktop) */
+.inventory-cards {
+  display: none;
+}
+
 /* ============================================================================
    RESPONSIVE DESIGN
    ============================================================================ */
@@ -1188,11 +1193,12 @@ input[type="number"] {
   }
 
   .nav-tab-icon {
-    font-size: 0;
+    display: flex;
+    align-items: center;
   }
 
   .nav-tab.active .nav-tab-icon {
-    font-size: initial;
+    display: flex;
   }
 
   .nav-actions {
@@ -1221,6 +1227,66 @@ input[type="number"] {
     flex-direction: column;
     align-items: flex-start;
     gap: 0.5rem;
+  }
+
+  /* Card inventory: hide table, show card layout */
+  .inventory-table-wrap {
+    display: none;
+  }
+
+  .inventory-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .inventory-cards .inv-card {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 0.75rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.35rem 1rem;
+    font-size: 0.8rem;
+  }
+
+  .inventory-cards .inv-card-header {
+    grid-column: 1 / -1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 0.4rem;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 0.25rem;
+  }
+
+  .inventory-cards .inv-card-header strong {
+    font-size: 0.9rem;
+    color: var(--text-primary);
+  }
+
+  .inventory-cards .inv-denom {
+    font-weight: 700;
+    color: #60a5fa;
+    font-size: 0.85rem;
+  }
+
+  .inventory-cards .inv-label {
+    color: var(--text-muted);
+    font-size: 0.7rem;
+  }
+
+  .inventory-cards .inv-val {
+    font-weight: 600;
+  }
+
+  .inventory-cards .inv-val.available {
+    color: #34d399;
+  }
+
+  .inventory-cards .inv-val.reserved {
+    color: #fbbf24;
   }
 
   .operator-grid {
@@ -1327,5 +1393,20 @@ input[type="number"] {
   .amount-chip {
     padding: 0.3rem 0.55rem;
     font-size: 0.8rem;
+  }
+
+  .inventory-cards .inv-card {
+    padding: 0.6rem;
+    gap: 0.25rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .inventory-cards .inv-card-header strong {
+    font-size: 0.8rem;
+  }
+
+  .nav-tab-icon svg {
+    width: 14px;
+    height: 14px;
   }
 }

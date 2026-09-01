@@ -110,7 +110,7 @@ export const CardInventoryPage: React.FC = () => {
             </button>
           </div>
 
-          <div className="table-container table-scroll">
+          <div className="table-container table-scroll inventory-table-wrap">
             <table className="data-table">
               <thead>
                 <tr>
@@ -144,6 +144,34 @@ export const CardInventoryPage: React.FC = () => {
                 ))}
               </tbody>
             </table>
+          </div>
+
+          {/* Mobile card view */}
+          <div className="inventory-cards">
+            {inventory.map((item, idx) => (
+              <div className="inv-card" key={idx}>
+                <div className="inv-card-header">
+                  <strong>{item.operatorName || item.operatorCode}</strong>
+                  <span className="inv-denom">₹{item.denomination}</span>
+                </div>
+                <div>
+                  <div className="inv-label">Available</div>
+                  <div className="inv-val available">{item.availableCount}</div>
+                </div>
+                <div>
+                  <div className="inv-label">Reserved</div>
+                  <div className="inv-val reserved">{item.reservedCount}</div>
+                </div>
+                <div>
+                  <div className="inv-label">Used</div>
+                  <div className="inv-val">{item.usedCount}</div>
+                </div>
+                <div>
+                  <div className="inv-label">Total</div>
+                  <div className="inv-val">{item.totalCount}</div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

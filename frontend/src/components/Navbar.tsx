@@ -55,6 +55,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
 
+  useEffect(() => {
+    const tabs = navTabsRef.current;
+    if (!tabs) return;
+    const active = tabs.querySelector('.nav-tab.active');
+    if (active) {
+      active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeTab]);
+
   return (
     <header className="navbar">
       <div className="brand-section">
@@ -71,16 +80,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <nav className="nav-tabs" ref={navTabsRef}>
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
-  useEffect(() => {
-    const tabs = navTabsRef.current;
-    if (!tabs) return;
-    const active = tabs.querySelector('.nav-tab.active');
-    if (active) {
-      active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-    }
-  }, [activeTab]);
-
-  return (
+          return (
             <button
               key={item.id}
               className={`nav-tab ${isActive ? 'active' : ''}`}
