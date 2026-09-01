@@ -298,7 +298,7 @@ export const RechargePage: React.FC = () => {
                 </div>
               </div>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', fontSize: '0.825rem' }}>
+              <div className="info-grid">
                 <div>
                   <span style={{ color: 'var(--text-secondary)' }}>Transaction ID:</span>
                   <div className="code-pill" style={{ marginTop: '2px' }}>{result.transactionId}</div>

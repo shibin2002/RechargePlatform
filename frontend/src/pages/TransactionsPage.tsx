@@ -231,7 +231,7 @@ export const TransactionsPage: React.FC = () => {
 
       {/* Pagination */}
       {totalCount > pageSize && (
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: '1rem' }}>
+        <div className="pagination-row">
           <span style={{ fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
             Showing {((pageNumber - 1) * pageSize) + 1} to {Math.min(pageNumber * pageSize, totalCount)} of {totalCount} transactions
           </span>
@@ -271,7 +271,7 @@ export const TransactionsPage: React.FC = () => {
               </button>
             </div>
 
-            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '0.75rem', marginBottom: '1.25rem', fontSize: '0.85rem' }}>
+            <div className="info-grid" style={{ marginBottom: '1.25rem' }}>
               <div>
                 <span style={{ color: 'var(--text-secondary)' }}>Transaction ID:</span>
                 <div className="code-pill" style={{ marginTop: '2px' }}>{selectedTxn.transactionId}</div>
