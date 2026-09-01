@@ -28,7 +28,7 @@ try
         {
             Title = "Telecom Recharge Platform API",
             Version = "v1",
-            Description = "Production-style telecom prepaid recharge platform. 🔑 To test protected endpoints in Swagger UI, click the green 'Authorize 🔓' button at the top right and enter: pos_super_secret_api_key_2026"
+            Description = "Production-style telecom prepaid recharge platform with concurrency-safe duplicate prevention and timeout recovery."
         });
 
         // Add X-Api-Key Security Definition in Swagger
@@ -116,15 +116,18 @@ try
 
     app.MapControllers();
 
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5000";
+    var portNumber = int.TryParse(port, out var parsedPort) ? parsedPort : 5000;
+
     app.MapGet("/", () => Results.Ok(new
     {
         Service = "Telecom Recharge API",
         Status = "Online",
-        Port = 5000,
+        Port = portNumber,
         Time = DateTime.UtcNow
     }));
 
-    app.Run("http://localhost:5000");
+    app.Run($"http://0.0.0.0:{port}");
 }
 catch (Exception ex)
 {

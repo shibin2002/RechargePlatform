@@ -1,0 +1,55 @@
+services:
+  # 1. Main Recharge Backend API
+  - type: web
+    name: recharge-api
+    env: docker
+    dockerfilePath: src/RechargeApi/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+      - key: DB_CONNECTION_STRING
+        sync: false # Set in Render Dashboard with your Cloud SQL Server connection string
+      - key: RECHARGE_API_KEY
+        value: pos_super_secret_api_key_2026
+      - key: PROVIDER_BASE_URL
+        fromService:
+          type: web
+          name: mock-provider-api
+          property: host
+
+  # 2. Mock Telecom Provider API
+  - type: web
+    name: mock-provider-api
+    env: docker
+    dockerfilePath: src/MockProviderApi/Dockerfile
+    dockerContext: .
+    plan: free
+    region: oregon
+    envVars:
+      - key: ASPNETCORE_ENVIRONMENT
+        value: Production
+
+  # 3. React POS Frontend (Static Site)
+  - type: web
+    name: recharge-pos-frontend
+    env: static
+    plan: free
+    region: oregon
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: VITE_API_KEY
+        value: pos_super_secret_api_key_2026
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: recharge-api
+          property: host

@@ -40,15 +40,18 @@ try
 
     app.MapControllers();
 
+    var port = Environment.GetEnvironmentVariable("PORT") ?? "5005";
+    var portNumber = int.TryParse(port, out var parsedPort) ? parsedPort : 5005;
+
     app.MapGet("/", () => Results.Ok(new
     {
         Service = "Mock Telecom Provider API",
         Status = "Online",
-        Port = 5005,
+        Port = portNumber,
         Time = DateTime.UtcNow
     }));
 
-    app.Run("http://localhost:5005");
+    app.Run($"http://0.0.0.0:{port}");
 }
 catch (Exception ex)
 {
