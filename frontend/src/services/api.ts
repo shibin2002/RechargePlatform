@@ -13,8 +13,12 @@ import type {
 const API_BASE_KEY = 'recharge_api_base_url';
 const API_SECRET_KEY = 'recharge_api_secret_key';
 
+export const DEFAULT_API_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api';
+export const DEFAULT_API_KEY = import.meta.env.VITE_API_KEY || 'pos_super_secret_api_key_2026';
+
 export const getApiBaseUrl = (): string => {
-  return localStorage.getItem(API_BASE_KEY) || 'http://localhost:5000/api';
+  const stored = localStorage.getItem(API_BASE_KEY);
+  return (stored && stored.trim().length > 0) ? stored : DEFAULT_API_URL;
 };
 
 export const setApiBaseUrl = (url: string): void => {
@@ -22,7 +26,8 @@ export const setApiBaseUrl = (url: string): void => {
 };
 
 export const getApiKey = (): string => {
-  return localStorage.getItem(API_SECRET_KEY) || '';
+  const stored = localStorage.getItem(API_SECRET_KEY);
+  return (stored && stored.trim().length > 0) ? stored : DEFAULT_API_KEY;
 };
 
 export const setApiKey = (key: string): void => {

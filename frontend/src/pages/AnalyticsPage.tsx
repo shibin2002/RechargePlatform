@@ -124,14 +124,13 @@ export const AnalyticsPage: React.FC = () => {
   return (
     <div className="grid-two-col" style={{ gridTemplateColumns: '320px 1fr' }}>
       {/* Left Sidebar: Query Selector */}
-      <div className="card-panel" style={{ height: 'fit-content' }}>
+      <div className="card-panel" style={{ height: 'fit-content', maxHeight: '600px', overflowY: 'auto' }}>
         <div className="card-header">
           <div>
             <h3 className="card-title">
               <Database size={18} color="#3b82f6" />
-              <span>Analytical T-SQL Queries</span>
+              <span>Analytics</span>
             </h3>
-            <p className="card-subtitle">Required production operational queries</p>
           </div>
         </div>
 
@@ -168,23 +167,21 @@ export const AnalyticsPage: React.FC = () => {
       </div>
 
       {/* Right Column: Query Results */}
-      <div>
+      <div style={{ overflow: 'hidden' }}>
         {/* Results Panel */}
         <div className="card-panel">
           <div className="card-header">
             <div>
               <h3 className="card-title">
                 <BarChart3 size={18} color="#06b6d4" />
-                <span>Query Results ({results.length} Rows)</span>
+                <span>{selectedQuery.name} ({results.length} {results.length === 1 ? 'Row' : 'Rows'})</span>
               </h3>
-              {executionTimeMs !== null && (
-                <p className="card-subtitle">Executed against SQL Server in {executionTimeMs} ms</p>
-              )}
+              <p className="card-subtitle">{selectedQuery.description}</p>
             </div>
           </div>
 
-          <div className="table-container">
-            <table className="data-table">
+          <div className="table-container" style={{ maxHeight: '470px', overflowY: 'auto', overflowX: 'auto' }}>
+            <table className="data-table" style={{ minWidth: '100px', width: '100%' }}>
               <thead>
                 <tr>
                   {columns.map((col) => (
