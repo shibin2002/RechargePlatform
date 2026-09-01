@@ -1,6 +1,0 @@
-@MockProviderApi_HostAddress = http://localhost:5189
-
-GET {{MockProviderApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

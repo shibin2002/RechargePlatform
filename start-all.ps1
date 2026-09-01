@@ -3,7 +3,11 @@
 # ============================================================================
 
 $root = $PSScriptRoot
-$dotnet = "C:\Users\shibi\AppData\Local\Microsoft\dotnet\dotnet.exe"
+$dotnet = (Get-Command dotnet -ErrorAction SilentlyContinue).Source
+if (-not $dotnet) {
+    Write-Host "ERROR: dotnet not found in PATH. Install .NET SDK from https://dotnet.microsoft.com/download" -ForegroundColor Red
+    exit 1
+}
 
 Write-Host "=======================================================" -ForegroundColor Cyan
 Write-Host " PayTelecom POS - Launching Complete Platform" -ForegroundColor Cyan

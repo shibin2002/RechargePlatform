@@ -1,6 +1,0 @@
-@RechargeApi_HostAddress = http://localhost:5155
-
-GET {{RechargeApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

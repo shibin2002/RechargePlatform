@@ -19,7 +19,8 @@ public class SqlConnectionFactory : ISqlConnectionFactory
     {
         _connectionString = Environment.GetEnvironmentVariable("DB_CONNECTION_STRING")
             ?? configuration.GetConnectionString("DefaultConnection")
-            ?? "Server=localhost;Database=RechargeDb;Trusted_Connection=True;TrustServerCertificate=True;MultipleActiveResultSets=True;";
+            ?? throw new InvalidOperationException(
+                "Database connection string not configured. Set DB_CONNECTION_STRING environment variable or provide DefaultConnection in configuration.");
     }
 
     public string ConnectionString => _connectionString;

@@ -13,7 +13,7 @@ services:
       - key: DB_CONNECTION_STRING
         sync: false # Set in Render Dashboard with your Cloud SQL Server connection string
       - key: RECHARGE_API_KEY
-        value: pos_super_secret_api_key_2026
+        sync: false # Set in Render Dashboard
       - key: PROVIDER_BASE_URL
         fromService:
           type: web
@@ -47,7 +47,7 @@ services:
         destination: /index.html
     envVars:
       - key: VITE_API_KEY
-        value: pos_super_secret_api_key_2026
+        sync: false # Set in Render Dashboard
       - key: VITE_API_BASE_URL
         fromService:
           type: web
