@@ -47,11 +47,11 @@ export const Navbar: React.FC<NavbarProps> = ({
   const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
 
   const navItems = [
-    { id: 'recharge', label: 'New Recharge', icon: <Smartphone size={16} /> },
-    { id: 'transactions', label: 'Transactions', icon: <History size={16} /> },
-    { id: 'cards', label: 'Card Import', icon: <UploadCloud size={16} /> },
-    { id: 'inventory', label: 'Card Inventory', icon: <Layers size={16} /> },
-    { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={16} /> },
+    { id: 'recharge', label: 'New Recharge', icon: <Smartphone size={18} /> },
+    { id: 'transactions', label: 'Transactions', icon: <History size={18} /> },
+    { id: 'cards', label: 'Card Import', icon: <UploadCloud size={18} /> },
+    { id: 'inventory', label: 'Card Inventory', icon: <Layers size={18} /> },
+    { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={18} /> },
   ];
 
 
