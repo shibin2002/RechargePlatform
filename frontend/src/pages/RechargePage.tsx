@@ -101,7 +101,6 @@ export const RechargePage: React.FC = () => {
             </h2>
             <p className="card-subtitle">Retail terminal for prepaid plans & voucher activations</p>
           </div>
-          <span className="brand-tag">Instant Dispatch</span>
         </div>
 
         <form onSubmit={handleRecharge}>
@@ -146,7 +145,6 @@ export const RechargePage: React.FC = () => {
           <div className="form-group">
             <label className="form-label">
               <span>Recharge Amount (INR)</span>
-              <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Quick Test Amounts</span>
             </label>
             <div className="amount-chips">
               {quickAmounts.map((amt) => (
@@ -176,7 +174,6 @@ export const RechargePage: React.FC = () => {
           <div className="form-group">
             <label className="form-label">
               <span>Transaction Reference ID</span>
-              <span style={{ fontSize: '0.75rem', color: '#94a3b8' }}>Unique constraint protected</span>
             </label>
             <div className="input-with-action">
               <input
@@ -195,15 +192,7 @@ export const RechargePage: React.FC = () => {
               >
                 <RefreshCw size={14} />
               </button>
-              <button
-                type="button"
-                className="input-action-btn"
-                onClick={handleSetTestDuplicateId}
-                title="Set TXN900001 to test duplicate protection"
-              >
-                <ShieldCheck size={14} />
-                <span style={{ marginLeft: 4, fontSize: '0.75rem' }}>TXN900001</span>
-              </button>
+              
             </div>
           </div>
 
@@ -274,7 +263,7 @@ export const RechargePage: React.FC = () => {
         {loading && (
           <div style={{ textAlign: 'center', padding: '3rem 1rem' }}>
             <RefreshCw size={36} className="animate-spin" style={{ color: '#3b82f6', marginBottom: '1rem' }} />
-            <p style={{ fontWeight: 600, color: '#f8fafc' }}>DB Transaction Committed (PROCESSING)</p>
+            <p style={{ fontWeight: 600, color: 'var(--text-primary)' }}>DB Transaction Committed (PROCESSING)</p>
             <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.3rem' }}>
               Calling Mock Provider at <code>http://localhost:5005</code> with 10s timeout...
             </p>
@@ -307,7 +296,7 @@ export const RechargePage: React.FC = () => {
                 </div>
                 <div style={{ textAlign: 'right' }}>
                   <span style={{ fontSize: '0.75rem', color: 'var(--text-secondary)' }}>AMOUNT</span>
-                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: '#ffffff', marginTop: '2px' }}>
+                  <div style={{ fontSize: '1.4rem', fontWeight: 800, color: 'var(--text-primary)', marginTop: '2px' }}>
                     ₹{result.amount}
                   </div>
                 </div>
@@ -367,7 +356,7 @@ export const RechargePage: React.FC = () => {
                   {result.history.map((h, idx) => (
                     <div key={h.id || idx} className="timeline-item">
                       <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-                        <span style={{ fontWeight: 700, color: '#f8fafc' }}>{h.oldStatus ? `${h.oldStatus} → ${h.newStatus}` : h.newStatus}</span>
+                        <span style={{ fontWeight: 700, color: 'var(--text-primary)' }}>{h.oldStatus ? `${h.oldStatus} → ${h.newStatus}` : h.newStatus}</span>
                         <span style={{ fontSize: '0.7rem', color: 'var(--text-muted)' }}>
                           {new Date(h.createdDate).toLocaleTimeString()}
                         </span>

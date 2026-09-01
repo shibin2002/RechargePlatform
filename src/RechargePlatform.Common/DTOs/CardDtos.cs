@@ -1,6 +1,15 @@
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Http;
 
 namespace RechargePlatform.Common.DTOs;
+
+public class CardImportRequestDto
+{
+    [Required(ErrorMessage = "CSV File is required.")]
+    public IFormFile File { get; set; } = null!;
+
+    public string? ImportedBy { get; set; }
+}
 
 public class CardImportRowRaw
 {

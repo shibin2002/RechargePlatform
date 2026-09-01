@@ -3,6 +3,7 @@
 # ============================================================================
 
 $root = $PSScriptRoot
+$dotnet = "C:\Users\shibi\AppData\Local\Microsoft\dotnet\dotnet.exe"
 
 Write-Host "=======================================================" -ForegroundColor Cyan
 Write-Host " PayTelecom POS - Launching Complete Platform" -ForegroundColor Cyan
@@ -10,11 +11,11 @@ Write-Host "=======================================================" -Foreground
 
 # 1. Start Mock Telecom Provider API (Port 5005)
 Write-Host "`n[1/3] Starting Mock Telecom Provider API on port 5005..." -ForegroundColor Yellow
-$providerProc = Start-Process dotnet -ArgumentList "run --project `"$root\src\MockProviderApi\MockProviderApi.csproj`"" -PassThru -NoNewWindow
+$providerProc = Start-Process $dotnet -ArgumentList "run --project `"$root\src\MockProviderApi\MockProviderApi.csproj`"" -PassThru -NoNewWindow
 
 # 2. Start Main Recharge API (Port 5000)
 Write-Host "[2/3] Starting Main Telecom Recharge API on port 5000..." -ForegroundColor Yellow
-$apiProc = Start-Process dotnet -ArgumentList "run --project `"$root\src\RechargeApi\RechargeApi.csproj`"" -PassThru -NoNewWindow
+$apiProc = Start-Process $dotnet -ArgumentList "run --project `"$root\src\RechargeApi\RechargeApi.csproj`"" -PassThru -NoNewWindow
 
 # 3. Start Frontend (Port 5173)
 Write-Host "[3/3] Starting React + TypeScript POS Frontend on port 5173..." -ForegroundColor Yellow

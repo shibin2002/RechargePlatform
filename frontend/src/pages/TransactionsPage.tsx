@@ -100,14 +100,7 @@ export const TransactionsPage: React.FC = () => {
           </div>
 
           <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', cursor: 'pointer' }}>
-              <input
-                type="checkbox"
-                checked={autoRefresh}
-                onChange={(e) => setAutoRefresh(e.target.checked)}
-              />
-              <span>Auto-refresh (8s)</span>
-            </label>
+            
 
             <button className="btn-secondary" onClick={() => fetchTransactions()} disabled={loading}>
               <RefreshCw size={14} className={loading ? 'animate-spin' : ''} />

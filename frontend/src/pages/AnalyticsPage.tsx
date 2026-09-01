@@ -186,7 +186,7 @@ export const AnalyticsPage: React.FC = () => {
         <div className="card-panel" style={{ marginBottom: '1.25rem' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '0.75rem' }}>
             <div>
-              <h2 style={{ fontSize: '1.15rem', fontWeight: 700, color: '#ffffff' }}>{selectedQuery.name}</h2>
+              <h2 style={{ fontSize: '1.15rem', fontWeight: 700, color: 'var(--text-primary)' }}>{selectedQuery.name}</h2>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-secondary)', marginTop: '2px' }}>
                 {selectedQuery.description}
               </p>
@@ -203,12 +203,12 @@ export const AnalyticsPage: React.FC = () => {
           </div>
 
           {/* Raw SQL Preview */}
-          <div style={{ background: '#0a0d14', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.75rem' }}>
+          <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.75rem' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.7rem', color: 'var(--text-muted)', marginBottom: '0.4rem' }}>
               <Code size={12} />
               <span>RAW T-SQL QUERY</span>
             </div>
-            <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '0.775rem', color: '#38bdf8', overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
+            <pre style={{ fontFamily: 'var(--font-mono)', fontSize: '0.775rem', color: 'var(--accent-cyan)', overflowX: 'auto', whiteSpace: 'pre-wrap' }}>
               {selectedQuery.sql}
             </pre>
           </div>

@@ -105,7 +105,7 @@ export const App: React.FC = () => {
                 />
               </div>
 
-              <div style={{ background: 'rgba(15, 23, 42, 0.6)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.75rem', marginBottom: '1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
+              <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border-color)', borderRadius: '6px', padding: '0.75rem', marginBottom: '1.25rem', fontSize: '0.8rem', color: 'var(--text-secondary)' }}>
                 <p>
                   <strong>Authentication Note:</strong> All requests to <code>/api/recharge</code> and <code>/api/cards</code> pass the <code>X-Api-Key</code> header. You can change this to test <code>401 Unauthorized</code> responses.
                 </p>

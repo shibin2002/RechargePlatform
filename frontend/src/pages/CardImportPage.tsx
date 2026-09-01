@@ -153,7 +153,7 @@ JIO-CARD-500-1001,SN-JIO-DUP1,Jio,500,2027-12-31`;
           />
 
           <FileSpreadsheet size={40} style={{ color: '#3b82f6', marginBottom: '0.75rem' }} />
-          <h3 style={{ fontSize: '1rem', fontWeight: 600, color: '#f8fafc' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 600, color: 'var(--text-primary)' }}>
             {file ? file.name : 'Click or Drag & Drop Voucher CSV File'}
           </h3>
           <p style={{ fontSize: '0.8rem', color: 'var(--text-secondary)', marginTop: '0.25rem' }}>
@@ -200,7 +200,7 @@ JIO-CARD-500-1001,SN-JIO-DUP1,Jio,500,2027-12-31`;
       {/* Import Result Metrics */}
       {importResult && (
         <div style={{ marginBottom: '1.5rem' }}>
-          <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem', color: '#f8fafc' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: 700, marginBottom: '0.75rem', color: 'var(--text-primary)' }}>
             Batch Import Summary: {importResult.fileName} (Batch #{importResult.batchId})
           </h3>
 

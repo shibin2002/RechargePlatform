@@ -1,19 +1,48 @@
-import React from 'react';
-import { Smartphone, History, UploadCloud, Layers, BarChart3, KeyRound, Radio } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import {
+  Smartphone,
+  History,
+  UploadCloud,
+  Layers,
+  BarChart3,
+  Clock,
+  Sun,
+  Moon
+} from 'lucide-react';
 
 interface NavbarProps {
   activeTab: string;
   setActiveTab: (tab: string) => void;
-  isBackendOnline: boolean;
-  onOpenSettings: () => void;
+  isBackendOnline?: boolean;
+  onOpenSettings?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   activeTab,
   setActiveTab,
-  isBackendOnline,
-  onOpenSettings,
 }) => {
+  const [timeStr, setTimeStr] = useState<string>('');
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+  }, [theme]);
+
+  useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setTimeStr(now.toLocaleTimeString('en-IN', { hour12: false }));
+    };
+    updateTime();
+    const interval = setInterval(updateTime, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
   const navItems = [
     { id: 'recharge', label: 'New Recharge', icon: <Smartphone size={16} /> },
     { id: 'transactions', label: 'Transactions', icon: <History size={16} /> },
@@ -25,42 +54,45 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <header className="navbar">
       <div className="brand-section">
-        <div className="brand-logo">
-          <Radio size={20} />
+        <div className="brand-logo" title="Arova">
+          <img src="/favicon.svg" alt="Arova" className="brand-logo-icon" />
         </div>
-        <div>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-            <span className="brand-name">PayTelecom POS</span>
-            <span className="brand-tag">India Platform</span>
+        <div className="brand-text-container">
+          <div className="brand-header-row">
+            <span className="brand-name">Arova</span>
           </div>
         </div>
       </div>
 
       <nav className="nav-tabs">
-        {navItems.map((item) => (
-          <button
-            key={item.id}
-            className={`nav-tab ${activeTab === item.id ? 'active' : ''}`}
-            onClick={() => setActiveTab(item.id)}
-          >
-            {item.icon}
-            <span>{item.label}</span>
-          </button>
-        ))}
+        {navItems.map((item) => {
+          const isActive = activeTab === item.id;
+          return (
+            <button
+              key={item.id}
+              className={`nav-tab ${isActive ? 'active' : ''}`}
+              onClick={() => setActiveTab(item.id)}
+            >
+              <span className="nav-tab-icon">{item.icon}</span>
+              <span className="nav-tab-label">{item.label}</span>
+              {isActive && <span className="nav-tab-glow" />}
+            </button>
+          );
+        })}
       </nav>
 
       <div className="nav-actions">
-        <div className="status-pill-header">
-          <span className={`indicator-dot ${isBackendOnline ? 'online' : 'offline'}`} />
-          <span style={{ color: isBackendOnline ? '#10b981' : '#ef4444', fontWeight: 600 }}>
-            {isBackendOnline ? 'API Connected' : 'API Offline'}
-          </span>
-        </div>
-
-        <button className="settings-btn" onClick={onOpenSettings} title="Configure API Key & Base URL">
-          <KeyRound size={14} />
-          <span>API Auth</span>
+        <button
+          className="theme-toggle"
+          onClick={toggleTheme}
+          title={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+        >
+          {theme === 'dark' ? <Sun size={16} /> : <Moon size={16} />}
         </button>
+        <div className="nav-time-widget" title="Live Terminal Time (IST)">
+          <Clock size={13} className="time-icon" />
+          <span className="time-text">{timeStr || '00:00:00'}</span>
+        </div>
       </div>
     </header>
   );
