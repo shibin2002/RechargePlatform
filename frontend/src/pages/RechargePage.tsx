@@ -39,10 +39,6 @@ export const RechargePage: React.FC = () => {
     setTransactionId(`TXN${Date.now().toString().slice(-6)}`);
   };
 
-  const handleSetTestDuplicateId = () => {
-    setTransactionId('TXN900001');
-  };
-
   const handleRecharge = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMsg(null);

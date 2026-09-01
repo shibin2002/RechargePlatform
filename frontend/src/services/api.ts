@@ -120,23 +120,13 @@ export const rechargeApi = {
     return response.data;
   },
 
-  // Analytics queries runner
-  runAnalyticsQuery: async (queryName: string, startDate?: string, endDate?: string): Promise<ApiResponse<any>> => {
-    const response = await apiClient.get<ApiResponse<any>>(`/analytics/queries/${queryName}`, {
-      params: { startDate, endDate },
-    });
-    return response.data;
-  },
-
-  getAnalyticsSummary: async (): Promise<ApiResponse<any>> => {
-    const response = await apiClient.get<ApiResponse<any>>('/analytics/summary');
-    return response.data;
-  },
-
   // Health check
   checkHealth: async (): Promise<boolean> => {
     try {
-      const response = await axios.get('http://localhost:5000/', { timeout: 3000 });
+      const response = await axios.get(
+        getApiBaseUrl().replace(/\/api\/?$/, '/'),
+        { timeout: 3000 }
+      );
       return response.status === 200;
     } catch {
       return false;

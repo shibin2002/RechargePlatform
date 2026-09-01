@@ -13,7 +13,7 @@ export const TransactionsPage: React.FC = () => {
   const [transactions, setTransactions] = useState<RechargeResponse[]>([]);
   const [totalCount, setTotalCount] = useState(0);
   const [loading, setLoading] = useState(false);
-  const [autoRefresh, setAutoRefresh] = useState(false);
+  const [autoRefresh] = useState(false);
 
   // Filters
   const [statusFilter, setStatusFilter] = useState('');

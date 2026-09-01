@@ -88,19 +88,14 @@ export const AnalyticsPage: React.FC = () => {
   const [selectedQueryId, setSelectedQueryId] = useState<string>('amountbyoperator');
   const [results, setResults] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
-  const [executionTimeMs, setExecutionTimeMs] = useState<number | null>(null);
-
   const selectedQuery = QUERIES.find((q) => q.id === selectedQueryId) || QUERIES[0];
 
   const handleRunQuery = async (queryId: string) => {
     setSelectedQueryId(queryId);
     setLoading(true);
-    const start = performance.now();
 
     try {
       const response = await rechargeApi.runAnalyticsQuery(queryId);
-      const elapsed = Math.round(performance.now() - start);
-      setExecutionTimeMs(elapsed);
 
       if (response.success && Array.isArray(response.data)) {
         setResults(response.data);
