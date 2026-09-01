@@ -244,7 +244,27 @@
       }
     },
     {
-      "name": "17. Analytics: Total Recharge by Operator",
+      "name": "17. Card Import Batches (GET /api/cards/batches)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/cards/batches", "host": ["{{baseUrl}}"], "path": ["cards", "batches"] }
+      }
+    },
+    {
+      "name": "18. Analytics Summary (GET /api/analytics/summary)",
+      "request": {
+        "method": "GET",
+        "header": [
+          { "key": "X-Api-Key", "value": "{{apiKey}}" }
+        ],
+        "url": { "raw": "{{baseUrl}}/analytics/summary", "host": ["{{baseUrl}}"], "path": ["analytics", "summary"] }
+      }
+    },
+    {
+      "name": "19. Analytics: Total Recharge by Operator",
       "request": {
         "method": "GET",
         "header": [

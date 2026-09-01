@@ -423,7 +423,7 @@ dotnet publish src\MockProviderApi\MockProviderApi.csproj -c Release -o C:\inetp
 
 ## 12. Postman Collection & Required Demo Scenario
 
-The Postman collection is located at [`postman/RechargePlatform.postman_collection.json`](file:///d:/project/RechargePlatform/postman/RechargePlatform.postman_collection.json).
+The Postman collection is located at [`postman/RechargePlatform.postman_collection.json`](postman/RechargePlatform.postman_collection.json).
 
 ### Required Demo: Concurrency Duplicate Scenario
 To verify that duplicate requests do NOT trigger multiple provider calls:

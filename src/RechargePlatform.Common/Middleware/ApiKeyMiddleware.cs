@@ -22,7 +22,10 @@ public class ApiKeyMiddleware
         var configKey = configuration[AuthConstants.ConfigApiKeyPath];
         _configuredApiKey = !string.IsNullOrWhiteSpace(envKey) 
             ? envKey 
-            : (!string.IsNullOrWhiteSpace(configKey) ? configKey : "pos_super_secret_api_key_2026");
+            : (!string.IsNullOrWhiteSpace(configKey) 
+                ? configKey 
+                : throw new InvalidOperationException(
+                    "API Key not configured. Please set RECHARGE_API_KEY in your .env file or environment variables."));
     }
 
     public async Task InvokeAsync(HttpContext context)

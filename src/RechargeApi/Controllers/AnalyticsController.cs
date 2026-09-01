@@ -15,6 +15,10 @@ public class AnalyticsController : ControllerBase
         _analyticsRepo = analyticsRepo;
     }
 
+    /// <summary>
+    /// GET /api/analytics/summary
+    /// Aggregated high-level recharge operational metrics
+    /// </summary>
     [HttpGet("summary")]
     public async Task<IActionResult> GetSummary()
     {
@@ -32,6 +36,13 @@ public class AnalyticsController : ControllerBase
         }));
     }
 
+    /// <summary>
+    /// GET /api/analytics/queries/{queryName}
+    /// Executes one of the 12 required analytical and reporting T-SQL queries against SQL Server
+    /// </summary>
+    /// <param name="queryName">Query identifier: successfultoday, failedtoday, pending, amountbyoperator, duplicatemobiles, top10mobiles, daterange, cardsbyoperator, cardsbydenomination, usedcards, expiredcards, cardsuseddaterange</param>
+    /// <param name="startDate">Optional start date for date-range queries (UTC)</param>
+    /// <param name="endDate">Optional end date for date-range queries (UTC)</param>
     [HttpGet("queries/{queryName}")]
     public async Task<IActionResult> RunQuery(
         string queryName,

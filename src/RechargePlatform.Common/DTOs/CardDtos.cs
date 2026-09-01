@@ -3,11 +3,17 @@ using Microsoft.AspNetCore.Http;
 
 namespace RechargePlatform.Common.DTOs;
 
+/// <summary>
+/// Multipart form data request for CSV voucher import
+/// </summary>
 public class CardImportRequestDto
 {
+    /// <summary>CSV file containing CardNumber, SerialNumber, Operator, Denomination, ExpiryDate</summary>
     [Required(ErrorMessage = "CSV File is required.")]
     public IFormFile File { get; set; } = null!;
 
+    /// <summary>User ID or cashier name performing the batch upload (e.g. POS_CASHIER_01)</summary>
+    /// <example>POS_CASHIER_01</example>
     public string? ImportedBy { get; set; }
 }
 
@@ -46,11 +52,18 @@ public class FailedCardRowDto
     public string ErrorReason { get; set; } = string.Empty;
 }
 
+/// <summary>
+/// Atomic card reservation payload to avoid race conditions
+/// </summary>
 public class CardReservationRequestDto
 {
+    /// <summary>Voucher card number to reserve (must be in AVAILABLE status)</summary>
+    /// <example>JIO-TEST-100-101</example>
     [Required(ErrorMessage = "CardNumber is required.")]
     public string CardNumber { get; set; } = string.Empty;
 
+    /// <summary>Unique transaction ID claiming the card</summary>
+    /// <example>TXN900001</example>
     [Required(ErrorMessage = "TransactionId is required.")]
     public string TransactionId { get; set; } = string.Empty;
 }

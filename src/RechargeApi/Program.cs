@@ -8,7 +8,7 @@ using RechargePlatform.Data.Repositories;
 using DotNetEnv;
 using Serilog;
 
-DotNetEnv.Env.Load();
+DotNetEnv.Env.TraversePath().Load();
 
 SerilogConfiguration.ConfigureLogger("RechargeApi");
 
@@ -28,7 +28,7 @@ try
         {
             Title = "Telecom Recharge Platform API",
             Version = "v1",
-            Description = "Production-style telecom prepaid recharge platform with concurrency-safe duplicate prevention and timeout recovery."
+            Description = "Production-style telecom prepaid recharge platform. 🔑 To test protected endpoints in Swagger UI, click the green 'Authorize 🔓' button at the top right and enter: pos_super_secret_api_key_2026"
         });
 
         // Add X-Api-Key Security Definition in Swagger
@@ -55,6 +55,11 @@ try
                 Array.Empty<string>()
             }
         });
+
+        foreach (var file in Directory.GetFiles(AppContext.BaseDirectory, "*.xml"))
+        {
+            c.IncludeXmlComments(file);
+        }
     });
 
     // Database and Repositories
