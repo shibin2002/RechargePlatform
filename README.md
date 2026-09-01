@@ -335,7 +335,7 @@ If two threads attempt to reserve the same card concurrently:
 
 ## 9. Authentication, Logging & Error Handling
 
-- **Authentication**: Custom ASP.NET Core `ApiKeyMiddleware` inspecting the `X-Api-Key` header. Defaults to `pos_super_secret_api_key_2026`. Returns `401 Unauthorized` JSON. The API key is **never written to logs**.
+- **Authentication**: Custom ASP.NET Core `ApiKeyMiddleware` inspecting the `X-Api-Key` header. Configured via `RECHARGE_API_KEY` environment variable. Returns `401 Unauthorized` JSON. The API key is **never written to logs**.
 - **Structured Logging**: Configured via Serilog with both Console and Daily Rolling File sinks (`logs/RechargeApi-.log`). Logs include incoming payloads, transaction IDs, latency ms, provider HTTP status, timeouts, and state transitions.
 - **Global Error Handling**: `GlobalExceptionHandlerMiddleware` captures all unhandled exceptions and produces uniform JSON error payloads.
 
@@ -416,7 +416,7 @@ dotnet publish src\MockProviderApi\MockProviderApi.csproj -c Release -o C:\inetp
 ### Step 5: Configure Production Settings & Secrets
 - Configure connection strings and API keys via `appsettings.Production.json` or IIS Environment Variables:
   - `ConnectionStrings__DefaultConnection`: `Server=SQLPROD01;Database=RechargeDb;Integrated Security=SSPI;TrustServerCertificate=True;`
-  - `Auth__ApiKey`: `pos_live_secure_key_india_pos`
+   - `Auth__ApiKey`: `your_production_api_key`
 - **Logs Location**: Serilog writes rolling files to `C:\inetpub\wwwroot\RechargeApi\logs\RechargeApi-YYYYMMDD.log`. Ensure the IIS AppPool user has Write permissions to the `logs` folder.
 
 ---
@@ -430,7 +430,7 @@ To verify that duplicate requests do NOT trigger multiple provider calls:
 1. Open Postman or execute two concurrent requests using PowerShell:
    ```powershell
    $body = '{"transactionId":"TXN900001","mobileNumber":"9876543210","operator":"Airtel","amount":299}'
-   $headers = @{ "X-Api-Key" = "pos_super_secret_api_key_2026"; "Content-Type" = "application/json" }
+   $headers = @{ "X-Api-Key" = $env:RECHARGE_API_KEY; "Content-Type" = "application/json" }
 
    # Fire request 1
    Invoke-RestMethod -Uri "http://localhost:5000/api/recharge" -Method Post -Body $body -Headers $headers

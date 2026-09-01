@@ -18,9 +18,11 @@ public class ApiKeyMiddleware
     {
         _next = next;
         _logger = logger;
-        _configuredApiKey = configuration[AuthConstants.ConfigApiKeyPath] 
-            ?? Environment.GetEnvironmentVariable("RECHARGE_API_KEY") 
-            ?? AuthConstants.DefaultApiKey;
+        var envKey = Environment.GetEnvironmentVariable("RECHARGE_API_KEY");
+        var configKey = configuration[AuthConstants.ConfigApiKeyPath];
+        _configuredApiKey = !string.IsNullOrWhiteSpace(envKey) 
+            ? envKey 
+            : (!string.IsNullOrWhiteSpace(configKey) ? configKey : "pos_super_secret_api_key_2026");
     }
 
     public async Task InvokeAsync(HttpContext context)

@@ -48,8 +48,9 @@ export const Navbar: React.FC<NavbarProps> = ({
     { id: 'transactions', label: 'Transactions', icon: <History size={16} /> },
     { id: 'cards', label: 'Card Import', icon: <UploadCloud size={16} /> },
     { id: 'inventory', label: 'Card Inventory', icon: <Layers size={16} /> },
-    { id: 'analytics', label: 'Analytics & SQL', icon: <BarChart3 size={16} /> },
+    { id: 'analytics', label: 'Analytics', icon: <BarChart3 size={16} /> },
   ];
+
 
   return (
     <header className="navbar">

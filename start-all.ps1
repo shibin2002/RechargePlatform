@@ -27,7 +27,7 @@ Write-Host "=======================================================" -Foreground
 Write-Host " - Frontend POS UI:   http://localhost:5173" -ForegroundColor White
 Write-Host " - Main Recharge API: http://localhost:5000/swagger" -ForegroundColor White
 Write-Host " - Mock Provider API: http://localhost:5005/swagger" -ForegroundColor White
-Write-Host " - API Key Header:    X-Api-Key: pos_super_secret_api_key_2026" -ForegroundColor White
+Write-Host " - API Key Header:    X-Api-Key: (set via RECHARGE_API_KEY env var)" -ForegroundColor White
 Write-Host "`nPress Ctrl+C to stop all running services..." -ForegroundColor Gray
 
 # Keep script open and handle shutdown

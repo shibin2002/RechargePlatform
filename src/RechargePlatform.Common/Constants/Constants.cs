@@ -42,5 +42,4 @@ public static class AuthConstants
 {
     public const string ApiKeyHeaderName = "X-Api-Key";
     public const string ConfigApiKeyPath = "Auth:ApiKey";
-    public const string DefaultApiKey = "pos_super_secret_api_key_2026";
 }

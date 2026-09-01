@@ -5,7 +5,10 @@ using RechargePlatform.Common.Logging;
 using RechargePlatform.Common.Middleware;
 using RechargePlatform.Data.Database;
 using RechargePlatform.Data.Repositories;
+using DotNetEnv;
 using Serilog;
+
+DotNetEnv.Env.Load();
 
 SerilogConfiguration.ConfigureLogger("RechargeApi");
 
@@ -35,7 +38,7 @@ try
             Type = SecuritySchemeType.ApiKey,
             Scheme = "ApiKeyScheme",
             In = ParameterLocation.Header,
-            Description = "Enter API Key (default: pos_super_secret_api_key_2026)"
+            Description = "Enter API Key configured via RECHARGE_API_KEY environment variable"
         });
 
         c.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -61,11 +64,13 @@ try
     builder.Services.AddScoped<IAnalyticsRepository, AnalyticsRepository>();
 
     // HTTP Client for Provider with explicit 10s timeout
-    var providerBaseUrl = builder.Configuration["Provider:BaseUrl"] ?? "http://localhost:5005/";
+    var providerBaseUrl = Environment.GetEnvironmentVariable("PROVIDER_BASE_URL")
+        ?? builder.Configuration["Provider:BaseUrl"]
+        ?? "http://localhost:5005/";
     builder.Services.AddHttpClient<IProviderClient, ProviderClient>(client =>
     {
         client.BaseAddress = new Uri(providerBaseUrl);
-        client.Timeout = TimeSpan.FromSeconds(10); // 10-second client timeout
+        client.Timeout = TimeSpan.FromSeconds(10);
     });
 
     // Domain Services

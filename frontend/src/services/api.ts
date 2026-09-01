@@ -22,7 +22,7 @@ export const setApiBaseUrl = (url: string): void => {
 };
 
 export const getApiKey = (): string => {
-  return localStorage.getItem(API_SECRET_KEY) || 'pos_super_secret_api_key_2026';
+  return localStorage.getItem(API_SECRET_KEY) || '';
 };
 
 export const setApiKey = (key: string): void => {
@@ -99,6 +99,19 @@ export const rechargeApi = {
 
   getCardBatches: async (): Promise<ApiResponse<CardBatchSummary[]>> => {
     const response = await apiClient.get<ApiResponse<CardBatchSummary[]>>('/cards/batches');
+    return response.data;
+  },
+
+  // Analytics queries runner
+  runAnalyticsQuery: async (queryName: string, startDate?: string, endDate?: string): Promise<ApiResponse<any>> => {
+    const response = await apiClient.get<ApiResponse<any>>(`/analytics/queries/${queryName}`, {
+      params: { startDate, endDate },
+    });
+    return response.data;
+  },
+
+  getAnalyticsSummary: async (): Promise<ApiResponse<any>> => {
+    const response = await apiClient.get<ApiResponse<any>>('/analytics/summary');
     return response.data;
   },
 

@@ -100,7 +100,7 @@ export const App: React.FC = () => {
                   className="form-input"
                   value={apiKeyInput}
                   onChange={(e) => setApiKeyInput(e.target.value)}
-                  placeholder="pos_super_secret_api_key_2026"
+                  placeholder="Enter your API key"
                   required
                 />
               </div>
@@ -124,7 +124,7 @@ export const App: React.FC = () => {
                   className="btn-secondary"
                   onClick={() => {
                     setBaseUrlInput('http://localhost:5000/api');
-                    setApiKeyInput('pos_super_secret_api_key_2026');
+                    setApiKeyInput('');
                   }}
                 >
                   Reset Defaults
