@@ -117,7 +117,7 @@ export const AnalyticsPage: React.FC = () => {
   const columns = results.length > 0 ? Object.keys(results[0]) : [];
 
   return (
-    <div className="grid-two-col" style={{ gridTemplateColumns: '320px 1fr' }}>
+    <div className="grid-two-col analytics-grid">
       {/* Left Sidebar: Query Selector */}
       <div className="card-panel" style={{ height: 'fit-content', maxHeight: '600px', overflowY: 'auto' }}>
         <div className="card-header">

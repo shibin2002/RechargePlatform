@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Smartphone,
   History,
@@ -27,6 +27,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     return (localStorage.getItem('theme') as 'dark' | 'light') || 'dark';
   });
+  const navTabsRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -67,10 +68,19 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      <nav className="nav-tabs">
+      <nav className="nav-tabs" ref={navTabsRef}>
         {navItems.map((item) => {
           const isActive = activeTab === item.id;
-          return (
+  useEffect(() => {
+    const tabs = navTabsRef.current;
+    if (!tabs) return;
+    const active = tabs.querySelector('.nav-tab.active');
+    if (active) {
+      active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    }
+  }, [activeTab]);
+
+  return (
             <button
               key={item.id}
               className={`nav-tab ${isActive ? 'active' : ''}`}
